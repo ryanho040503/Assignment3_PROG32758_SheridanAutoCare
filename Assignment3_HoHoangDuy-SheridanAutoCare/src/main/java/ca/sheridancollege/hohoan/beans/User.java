@@ -1,7 +1,5 @@
 package ca.sheridancollege.hohoan.beans;
 
-import java.time.LocalDate;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,18 +10,13 @@ import lombok.RequiredArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class Vehicle {
+public class User {
 
-	private Long vehicle_id;
+	private Long userId;
 	@NonNull
-	private String owner_name;
+	private String email;
 	@NonNull
-	private String vehicle_model;
-	@NonNull
-	private String license_plate;
-	@NonNull
-	private LocalDate service_date;
-	private double service_cost;
-	private Long service_type_id;
+	private String encryptedPassword;
+	private boolean enabled;
 	
 }

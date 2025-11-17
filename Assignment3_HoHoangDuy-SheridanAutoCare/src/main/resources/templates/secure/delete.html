@@ -1,10 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Delete Page For Administrator</title>
 </head>
 <body>
+	<table>
+		<tr>
+			<th>Vehicle ID</th>
+			<th>Owner Name</th>
+			<th>Vehicle Model</th>
+			<th>License Plate</th>
+			<th>Service Date</th>
+			<th>Service Cost</th>
+			<th>Service Type ID</th>
+			<th>Action</th>
+		</tr>
+		
+		<tr th:each="v : ${vehicles}">
+			<td th:text="${v.vehicleId}"></td>
+			<td th:text="${v.ownerName}"></td>
+			<td th:text="${v.vehicleModel}"></td>
+			<td th:text="${v.licensePlate}"></td>
+			<td th:text="${v.serviceDate}"></td>
+			<td th:text="${v.serviceCost}"></td>
+			<td th:text="${v.serviceTypeId}"></td>
+			<td>
+				<a th:href="@{'/editVehicle/' + ${v.vehicleId}}"></a>
+				<a th:href="@{'/deleteVehicle/' + ${v.vehicleId}}"></a>
+			</td>
+		</tr>
+	</table>
 
+	<!-- Just show up when user click to edit button -->
+	<div th:if="${vehicle.vehicleId != null}">
+		<form th:action="@{/updateServiceCost}" method="post" th:object="${vehicle}">
+			Vehicle ID : 
+			<select th:field="*{vehicleId}">
+				<option value="">--Select your vehicle--</option>
+				<option	th:each="v : ${vehicles}"
+						th:value="${v.vehicleId}"
+						th:text="${v.vehicleId + ' - ' + v.ownerName}"
+				></option>
+			</select>
+			
+			Service Cost : <input type="number" th:field="*{serviceCost}" /><br>
+			
+			<input type="submit" value="Update Cost!" />
+		</form>
+	</div>
 </body>
 </html>

@@ -44,10 +44,16 @@ public class SecurityConfig {
 	            .anyRequest().denyAll()
 	        )
 
-	        // ===== CSRF =====
+	        // ===== CSRF ===== (Cross-Site Request Forgery)
+        	// If we are entering to the site with request like 
+	        // http://mybank.com/transfer?amount=1000&to=hacker
+	        // <img src="http://mybank.com/transfer?amount=1000&to=hacker" /> 
+	        // => Send request to end point of server 
+	        
+	       
 	        .csrf(csrf -> csrf
-	            .ignoringRequestMatchers("/h2-console/**")
-	            .disable()
+	            .ignoringRequestMatchers("/h2-console/**") 
+	            .disable() // Alow send POST/PUT/DELETE without CSRF token
 	        )
 
 	        // ===== HEADERS =====

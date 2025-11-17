@@ -1,10 +1,81 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+>
 <head>
+<script src="../static/js/script.js" th:src="@{/js/script.js}" ></script>
+<link rel="stylesheet" type="text/css" media="all" href="../static/css/mycss.css" th:href="@{/css/mycss.css}" />
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Insert Page</title>
 </head>
 <body>
-
+	<form method="post" th:object="${vehicle}" th:action="@{/addVehicle}">
+	
+		<input type="hidden" th:field="*{vehicleId}">
+		
+		<!-- Have to be same exactly in schema "ownerName" instead of "owner_name" -->
+		Owner Name : 
+		<input type="text" th:field="*{ownerName}" /><br>
+		
+		Vehicle Model : 
+		<input type="text" th:field="*{vehicleModel}" /><br>
+		
+		License Plate : 
+		<input type="text" th:field="*{licensePlate}" /><br>
+		
+		Service Date : 
+		<input type="date" th:field="*{serviceDate}" /><br>
+		
+		Service Type : 
+		<select th:field="*{serviceTypeId}" >
+			<option value="">--Select the service--</option>
+			<option th:each="s : ${services}"
+					th:value="${s.serviceTypeId}"
+					th:text="${s.serviceName}"
+			></option>
+		</select><br>
+		
+		Service Cost : <input type="number" th:field="*{serviceCost}" /><br>
+		
+		<input type="submit" value="Add Customer" />
+	</form>
+	
+	<br>
+	
+	<h1>Register Here!</h1>
+	<div id="error" class="error"></div>
+	
+	<form name="form" action="#" th:action="@{/register}" method="post" onsubmit="return verify()">
+		
+		<input type="hidden">
+		
+		Email:
+		<input type="email" name="username"> <!-- This is username instead of "userName" -->
+		
+		Password:
+		<input type="password" name="password">
+		
+		Verify Password:
+		<input type="password" name="verifyPassword">
+	
+		<input type="submit" value="Register">
+	</form>
 </body>
+
+
+<!-- 
+							Self Note 
+Have to be same exactly in schema "ownerName" instead of "owner_name" 
+
+CREATE TABLE SERVICE_TYPES 
+(
+	SERVICE_TYPE_ID NUMERIC(4,0) PRIMARY KEY,
+	SERVICE_NAME VARCHAR(50) NOT NULL,
+	DESCRIPTION VARCHAR(100)
+);
+ -->
+ 
+ <!-- when using js, the name="username" instead of "userName" -->
+
 </html>
+

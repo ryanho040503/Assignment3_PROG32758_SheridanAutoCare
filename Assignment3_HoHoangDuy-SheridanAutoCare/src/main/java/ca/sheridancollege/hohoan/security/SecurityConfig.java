@@ -52,7 +52,7 @@ public class SecurityConfig {
 	        
 	       
 	        .csrf(csrf -> csrf
-	            .ignoringRequestMatchers("/h2-console/**") 
+	            .ignoringRequestMatchers("/h2-console/**") // For all the request in the h2-console
 	            .disable() // Alow send POST/PUT/DELETE without CSRF token
 	        )
 
